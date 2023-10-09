@@ -2,16 +2,16 @@
 
 ![Preview](https://user-images.githubusercontent.com/57331815/139193026-c7a321e5-0ba2-45e4-85dc-d1924045f43a.png)
 
-Convierte los dolares americanos USD a pesos chilenos CLP con facilidad usan esta extension de GNOME Shell.
+Convierte los dolares americanos USD a pesos chilenos CLP con facilidad usando esta extension de GNOME Shell.
 
 ## Table of Contents
 
-- [Introduction](#dollar-to-brl-gnome-shell-extension)
-- [License](#licence)
-- [Installation](#how-to-install)
+- [Introducción](#dollar-to-brl-gnome-shell-extension)
+- [Licencia](#licencia)
+- [Instalación](#instalacion)
 - [Preview](#preview)
 
-## License
+## Licencia
 
 This program is free software released under the GNU General Public License (GPL) version 2 or later. You can redistribute and modify it under the terms of this license. For full details, see [GNU General Public License](http://www.gnu.org/licenses/).
 
