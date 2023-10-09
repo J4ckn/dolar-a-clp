@@ -8,7 +8,7 @@ Convierte los dolares americanos USD a pesos chilenos CLP con facilidad usando e
 
 - [Introducción](#dollar-to-brl-gnome-shell-extension)
 - [Licencia](#licencia)
-- [Instalación](#instalacion)
+- [Instalación](#instalación)
 - [Preview](#preview)
 
 ## Licencia
