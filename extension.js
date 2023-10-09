@@ -32,13 +32,10 @@ let dollarQuotation;
 let sourceId = null;
 
 // Start application
-function init() {
-    log(`initializing ${Me.metadata.name}`);
-}
+function init() {}
 
 // Add the button to the panel
 function enable() {
-    log(`enabling ${Me.metadata.name}`);
     panelButton = new St.Bin({
         style_class: "panel-button",
     });
@@ -53,7 +50,6 @@ function enable() {
 
 // Remove the added button from panel
 function disable() {
-    log(`disabling ${Me.metadata.name}`);
     Main.panel._centerBox.remove_child(panelButton);
 
     if (panelButton) {
@@ -65,14 +61,15 @@ function disable() {
         GLib.Source.remove(sourceId);
         sourceId = null;
     }
+    
+    if (session) {
+        session.abort(session);
+        session = null;
+    }
 }
 
 // Handle Requests API Dollar
 async function handle_request_dollar_api() {
-    let upDown = null;
-    let upDownIcon = null;
-    let clpValue = null;
-
     try {
         // Create a new Soup Session
         if (!session) {
@@ -80,10 +77,8 @@ async function handle_request_dollar_api() {
         }
 
         // Create body of Soup request
-        // https://mindicador.cl/api/dolar
-        // https://economia.awesomeapi.com.br/last/USD-CLP
         let message = Soup.Message.new_from_encoded_form(
-            "GET", "https://mindicador.cl/api/dolar", Soup.form_encode_hash({}));
+            "GET", "https://mindicador.cl/api", Soup.form_encode_hash({}));
 
         // Send Soup request to API Server
         await session.send_and_read_async(message, GLib.PRIORITY_DEFAULT, null, (_, r0) => {
@@ -92,18 +87,12 @@ async function handle_request_dollar_api() {
             const body_response = JSON.parse(response);
 
             // Get the value of Dollar Quotation
-            clpValue = body_response["serie"]
+            dollarQuotation = body_response["dolar"]["valor"];
 
-            upDown = clpValue[0]["valor"];
-            dollarQuotation = clpValue[0]["valor"];
-            dollarQuotation = dollarQuotation.split(".");
-            dollarQuotation = dollarQuotation[0] + "," + dollarQuotation[1].substring(0, 2);
-
-            parseFloat(upDown) > 0 ? upDownIcon = "⬆" : upDownIcon = "⬇";
-
-            // Set text in Widget
+            // Sext text in Widget
             panelButtonText = new St.Label({
-                text: "(USD$: 1,00) = (CLP$: " + dollarQuotation + ") " + upDownIcon,
+            style_class : "cPanelText",
+                text: "(1 USD = " + dollarQuotation + " CLP)",
                 y_align: Clutter.ActorAlign.CENTER,
             });
             panelButton.set_child(panelButtonText);
@@ -114,9 +103,9 @@ async function handle_request_dollar_api() {
             response = undefined;
         });
     } catch (error) {
-        log(`Traceback Error in [handle_request_dollar_api]: ${error}`);
+        console.error(`Traceback Error in [handle_request_dollar_api]: ${error}`);
         panelButtonText = new St.Label({
-            text: "(USD: 1,00) = (CLP: " + _dollarQuotation + ")" + " * ",
+            text: "(1 USD = " + _dollarQuotation + ")" + " * ",
             y_align: Clutter.ActorAlign.CENTER,
         });
         panelButton.set_child(panelButtonText);
