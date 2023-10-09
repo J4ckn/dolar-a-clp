@@ -71,6 +71,7 @@ function disable() {
 async function handle_request_dollar_api() {
     let upDown = null;
     let upDownIcon = null;
+    let clpValue = null;
 
     try {
         // Create a new Soup Session
@@ -79,8 +80,10 @@ async function handle_request_dollar_api() {
         }
 
         // Create body of Soup request
+        // https://mindicador.cl/api/dolar
+        // https://economia.awesomeapi.com.br/last/USD-CLP
         let message = Soup.Message.new_from_encoded_form(
-            "GET", "https://economia.awesomeapi.com.br/last/USD-BRL", Soup.form_encode_hash({}));
+            "GET", "https://mindicador.cl/api/dolar", Soup.form_encode_hash({}));
 
         // Send Soup request to API Server
         await session.send_and_read_async(message, GLib.PRIORITY_DEFAULT, null, (_, r0) => {
@@ -89,8 +92,10 @@ async function handle_request_dollar_api() {
             const body_response = JSON.parse(response);
 
             // Get the value of Dollar Quotation
-            upDown = body_response["USDBRL"]["varBid"];
-            dollarQuotation = body_response["USDBRL"]["bid"];
+            clpValue = body_response["serie"]
+
+            upDown = clpValue[0]["valor"];
+            dollarQuotation = clpValue[0]["valor"];
             dollarQuotation = dollarQuotation.split(".");
             dollarQuotation = dollarQuotation[0] + "," + dollarQuotation[1].substring(0, 2);
 
@@ -98,7 +103,7 @@ async function handle_request_dollar_api() {
 
             // Set text in Widget
             panelButtonText = new St.Label({
-                text: "(U$: 1,00) = (R$: " + dollarQuotation + ") " + upDownIcon,
+                text: "(USD$: 1,00) = (CLP$: " + dollarQuotation + ") " + upDownIcon,
                 y_align: Clutter.ActorAlign.CENTER,
             });
             panelButton.set_child(panelButtonText);
@@ -111,7 +116,7 @@ async function handle_request_dollar_api() {
     } catch (error) {
         log(`Traceback Error in [handle_request_dollar_api]: ${error}`);
         panelButtonText = new St.Label({
-            text: "(USD: 1,00) = (BRL: " + _dollarQuotation + ")" + " * ",
+            text: "(USD: 1,00) = (CLP: " + _dollarQuotation + ")" + " * ",
             y_align: Clutter.ActorAlign.CENTER,
         });
         panelButton.set_child(panelButtonText);
