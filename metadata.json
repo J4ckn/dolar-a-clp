@@ -2,7 +2,7 @@
   "uuid": "dolar-a-clp@j4ckn.github.com",
   "name": "Dolar-a-CLP",
   "description": "Convierte el Dolar Americano USD a pesos chilenos CLP usando la api MiIndicador.cl https://mindicador.cl/api/dolar.",
-  "version": 1,
+  "version": 2,
   "shell-version": ["43", "44"],
   "url": "https://github.com/J4ckn/dolar-a-clp"
 }

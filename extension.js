@@ -66,6 +66,15 @@ function disable() {
         session.abort(session);
         session = null;
     }
+
+    if (panelButtonText) {
+        panelButtonText.destroy();
+        panelButtonText = null;
+    }
+
+    if (dollarQuotation) {
+        dollarQuotation = null;
+    }
 }
 
 // Handle Requests API Dollar
