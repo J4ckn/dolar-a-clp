@@ -1,6 +1,6 @@
 # Dolar a CLP GNOME Shell Extension
 
-![Preview](https://user-images.githubusercontent.com/57331815/139193026-c7a321e5-0ba2-45e4-85dc-d1924045f43a.png)
+![Preview](https://github.com/J4ckn/dolar-a-clp/assets/64680667/2e26b627-8518-460c-9291-02f949c13d95)
 
 Convierte los dolares americanos USD a pesos chilenos CLP con facilidad usando esta extension de GNOME Shell.
 
@@ -34,6 +34,6 @@ rm -rf dolar-a-clp
 
 ## Preview
 
-![Preview](https://user-images.githubusercontent.com/57331815/139193026-c7a321e5-0ba2-45e4-85dc-d1924045f43a.png)
+![Preview](https://github.com/J4ckn/dolar-a-clp/assets/64680667/2e26b627-8518-460c-9291-02f949c13d95)
 
 
